@@ -1,0 +1,21 @@
+#gameboard{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 540px;
+}
+
+.boxes{
+    box-sizing: border-box;
+    background-color: wheat;
+    border: solid;
+    border-color: black;
+    height: 180px;
+    width: 180px;
+}
+
+#box1,
+#box2,
+#box3{
+    border-top: none;
+}
