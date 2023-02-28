@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
@@ -17,6 +18,7 @@ const gameFunctionality = () => {
       console.log('player2 wins!');
     }
   };
+
   const winner = () => {
     if (winningCombination.some((combination) => combination.every((number) => p1combination.includes(number)))) {
       announcer('player1');
@@ -25,25 +27,54 @@ const gameFunctionality = () => {
     }
   };
 
-  const gameOn = () => {
+  const GameOn = () => {
     boxes.forEach((element) => {
       element.addEventListener('click', () => {
-        if (p1combination.length > p2combination.length) {
-          p2combination.push(element.dataset.number);
-          console.log(p2combination);
-          winner();
+        if (p1combination.length === p2combination.length) {
+          player1Turn(element);
         } else {
-          p1combination.push(element.dataset.number);
-          console.log(p1combination);
-          winner();
+          player2Turn(element);
         }
       });
     });
+
+    const player1Turn = (value) => {
+      if (p1combination.includes(value.dataset.number) === true || p2combination.includes(value.dataset.number) === true) {
+        console.log('option already selected!');
+      } else {
+        p1combination.push(value.dataset.number);
+        playerMark(value);
+        winner();
+        console.log(p1combination);
+        console.log(p2combination);
+      }
+    };
+
+    const player2Turn = (value) => {
+      if (p1combination.includes(value.dataset.number) === true || p2combination.includes(value.dataset.number) === true) {
+        console.log('option already selected!');
+      } else {
+        p2combination.push(value.dataset.number);
+        playerMark(value);
+        winner();
+        console.log(p1combination);
+        console.log(p2combination);
+      }
+    };
+
+    const playerMark = (box) => {
+      if (p1combination.includes(box.dataset.number)) {
+        box.textContent = 'x';
+      } else if (p2combination.includes(box.dataset.number)) {
+        box.textContent = 'o';
+      }
+    };
   };
 
   return {
-    gameOn,
+    GameOn,
   };
 };
+
 const gamematch = gameFunctionality();
-gamematch.gameOn();
+gamematch.GameOn();
